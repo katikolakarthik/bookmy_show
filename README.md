@@ -383,3 +383,77 @@ If still not working:
 3. **Check server logs** for any errors
 
 Let me know what you see in the database and I'll help you fix it! 🔧 
+
+## 🚀 **Vercel Deployment**
+
+This project is configured for easy deployment on Vercel.
+
+1. **Install Vercel CLI**
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Deploy to Vercel**
+   ```bash
+   vercel
+   ```
+
+3. **Set Environment Variables in Vercel**
+   - Go to your Vercel dashboard
+   - Navigate to your project settings
+   - Add all environment variables from your `.env` file
+
+4. **Configure MongoDB Atlas**
+   - Use MongoDB Atlas for cloud database
+   - Update `MONGODB_URI` in Vercel environment variables
+   - Ensure your MongoDB cluster allows connections from Vercel's IP ranges
+
+5. **Update CORS Settings**
+   - Update the `FRONTEND_URL` in your environment variables
+   - Update the CORS configuration in `server.js` if needed
+
+### **Environment Variables for Production**
+
+Make sure to set these in your Vercel dashboard:
+
+```env
+NODE_ENV=production
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/bookmyshow
+JWT_SECRET=your-production-jwt-secret
+JWT_EXPIRE=7d
+BCRYPT_SALT_ROUNDS=12
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
+FRONTEND_URL=https://your-frontend-domain.vercel.app
+```
+
+## 📋 **Project Structure**
+
+```
+bookmyshow-backend/
+├── api/                    # Vercel serverless functions
+├── controllers/           # Route controllers
+├── middleware/           # Custom middleware
+├── models/              # Mongoose models
+├── routes/              # API routes
+├── config.env           # Environment variables
+├── server.js            # Main server file
+├── vercel.json          # Vercel configuration
+└── package.json         # Dependencies and scripts
+```
+
+## 🚀 **Contributing**
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 **License**
+
+This project is licensed under the MIT License.
+
+## 📞 **Support**
+
+For support, email support@bookmyshow.com or create an issue in the repository. 
