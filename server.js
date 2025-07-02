@@ -13,9 +13,11 @@ const venueRoutes = require('./routes/venue');
 const bookingRoutes = require('./routes/booking');
 const adminRoutes = require('./routes/admin');
 const showRoutes = require('./routes/show');
+const reservationRoutes = require('./routes/reservation');
 
 const errorHandler = require('./middleware/errorHandler');
 const { notFound } = require('./middleware/notFound');
+const { startCleanupJob } = require('./utils/reservationCleanup');
 
 const app = express();
 
@@ -71,6 +73,7 @@ app.use('/api/venues', venueRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/shows', showRoutes);
+app.use('/api/reservations', reservationRoutes);
 
 // Error handling middleware
 app.use(notFound);
@@ -92,6 +95,9 @@ const connectDB = async () => {
 
 // Connect to database
 connectDB();
+
+// Start reservation cleanup job
+startCleanupJob();
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {

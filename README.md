@@ -143,6 +143,14 @@ http://localhost:5000/api
 - `PUT /bookings/:id/cancel` - Cancel booking
 - `POST /bookings/lock-seats` - Lock seats temporarily
 
+### Reservation Routes (`/reservations`)
+- `POST /reservations/reserve` - Reserve seats temporarily (5 minutes)
+- `GET /reservations/:reservationId` - Get reservation details
+- `POST /reservations/:reservationId/convert` - Convert reservation to booking
+- `DELETE /reservations/:reservationId` - Cancel reservation
+- `GET /reservations/show/:showId/seats` - Get available seats (excluding reserved)
+- `POST /reservations/clean-expired` - Clean expired reservations (admin only)
+
 ### Admin Routes (`/admin`)
 - `GET /admin/dashboard` - Get admin dashboard stats
 - `GET /admin/users` - Get all users (admin only)
@@ -188,6 +196,13 @@ http://localhost:5000/api
 - Seat selection and pricing
 - Payment details and status
 - Booking codes and expiry
+
+### SeatReservation Model
+- Temporary seat holds (5-minute timeout)
+- User and show references
+- Seat details and pricing
+- Reservation codes and expiry
+- Status tracking (active, expired, converted, cancelled)
 
 ## 🔐 Authentication
 

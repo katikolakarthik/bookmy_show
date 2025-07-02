@@ -1,13 +1,16 @@
 const express = require('express');
-const { protect } = require('../middleware/auth');
-const { getMe, updateProfile, changePassword } = require('../controllers/authController');
-
 const router = express.Router();
+const { protect } = require('../middleware/auth');
+const {
+  getMe,
+  updateProfile,
+  changePassword
+} = require('../controllers/authController');
 
-// All routes require authentication
+// All user routes are protected
 router.use(protect);
 
-// Routes
+// User profile routes (reusing auth controller functions)
 router.get('/profile', getMe);
 router.put('/profile', updateProfile);
 router.put('/change-password', changePassword);

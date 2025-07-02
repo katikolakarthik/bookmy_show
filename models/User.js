@@ -6,28 +6,21 @@ const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please add a name'],
-    trim: true,
-    maxlength: [50, 'Name cannot be more than 50 characters']
+    trim: true
   },
   email: {
     type: String,
     required: [true, 'Please add an email'],
-    unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      'Please add a valid email'
-    ]
+    unique: true
   },
   password: {
     type: String,
     required: [true, 'Please add a password'],
-    minlength: [8, 'Password must be at least 8 characters'],
     select: false
   },
   phone: {
     type: String,
-    required: [true, 'Please add a phone number'],
-    match: [/^[0-9]{10}$/, 'Please add a valid 10-digit phone number']
+    required: [true, 'Please add a phone number']
   },
   role: {
     type: String,

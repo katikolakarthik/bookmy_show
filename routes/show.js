@@ -1,75 +1,45 @@
 const express = require('express');
-const { body } = require('express-validator');
-const { protect, authorize } = require('../middleware/auth');
-const validate = require('../middleware/validation');
-const Show = require('../models/Show');
-
 const router = express.Router();
+const { protect, authorize } = require('../middleware/auth');
 
-// Validation rules for creating/updating a show
-const showValidation = [
-  body('venue').isMongoId().withMessage('Venue is required'),
-  body('dateTime.start').isISO8601().withMessage('Start date/time is required'),
-  body('dateTime.end').isISO8601().withMessage('End date/time is required'),
-  body('duration').isInt({ min: 1 }).withMessage('Duration is required'),
-  body('totalSeats').isInt({ min: 1 }).withMessage('Total seats required'),
-  body('availableSeats').isInt({ min: 0 }).withMessage('Available seats required'),
-  body('language').notEmpty().withMessage('Language is required'),
-  body('showType').isIn(['movie', 'event']).withMessage('Show type must be movie or event'),
-  validate
-];
+// Placeholder routes for shows
+// TODO: Create showController and implement these routes
 
-// GET /api/shows - List all shows (public)
-router.get('/', async (req, res, next) => {
-  try {
-    const shows = await Show.find().populate('movie event venue');
-    res.json({ success: true, data: shows });
-  } catch (error) {
-    next(error);
-  }
+// Public routes
+router.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Shows API - Not implemented yet'
+  });
 });
 
-// GET /api/shows/:id - Get single show (public)
-router.get('/:id', async (req, res, next) => {
-  try {
-    const show = await Show.findById(req.params.id).populate('movie event venue');
-    if (!show) return res.status(404).json({ success: false, error: 'Show not found' });
-    res.json({ success: true, data: show });
-  } catch (error) {
-    next(error);
-  }
+router.get('/:id', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Get show by ID - Not implemented yet'
+  });
 });
 
-// POST /api/shows - Create show (admin only)
-router.post('/', protect, authorize('admin'), showValidation, async (req, res, next) => {
-  try {
-    const show = await Show.create(req.body);
-    res.status(201).json({ success: true, data: show });
-  } catch (error) {
-    next(error);
-  }
+// Admin only routes
+router.post('/', protect, authorize('admin'), (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Create show - Not implemented yet'
+  });
 });
 
-// PUT /api/shows/:id - Update show (admin only)
-router.put('/:id', protect, authorize('admin'), showValidation, async (req, res, next) => {
-  try {
-    const show = await Show.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-    if (!show) return res.status(404).json({ success: false, error: 'Show not found' });
-    res.json({ success: true, data: show });
-  } catch (error) {
-    next(error);
-  }
+router.put('/:id', protect, authorize('admin'), (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Update show - Not implemented yet'
+  });
 });
 
-// DELETE /api/shows/:id - Delete show (admin only)
-router.delete('/:id', protect, authorize('admin'), async (req, res, next) => {
-  try {
-    const show = await Show.findByIdAndDelete(req.params.id);
-    if (!show) return res.status(404).json({ success: false, error: 'Show not found' });
-    res.json({ success: true, message: 'Show deleted' });
-  } catch (error) {
-    next(error);
-  }
+router.delete('/:id', protect, authorize('admin'), (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Delete show - Not implemented yet'
+  });
 });
 
 module.exports = router; 
